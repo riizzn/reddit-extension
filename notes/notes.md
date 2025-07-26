@@ -34,17 +34,23 @@
 ### Data Flow
 
 1. **Reddit Page Opens**
-    - ↓
+   - ↓
 2. **Content Script extracts posts/comments**
-    - ↓
+   - ↓
 3. **Data sent to Background Worker**
-    - ↓
+   - ↓
 4. **Background calls OpenAI API for summaries**
-    - ↓
+   - ↓
 5. **Results cached in Background storage**
-    - ↓
+   - ↓
 6. **User clicks extension icon → Popup opens**
-    - ↓
+   - ↓
 7. **Popup requests data from Background**
-    - ↓
-8. **Popup displays nice UI with  summaries**
+   - ↓
+8. **Popup displays nice UI with summaries**
+
+| Part               | Acts like…                  | Can access page DOM? | Can use Chrome APIs?  | Lives long?  |
+| ------------------ | --------------------------- | -------------------- | --------------------- | ------------ |
+| **Popup**          | Your extension’s visible UI | ❌ No                | ✅ Yes                | ❌ Short      |
+| **Background**     | The brain / controller      | ❌ No                | ✅ Yes                | 🟡 Temporary |
+| **Content Script** | Spy inside the webpage      | ✅ Yes               | ❌ No (needs messages)| ✅
