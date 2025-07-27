@@ -1,8 +1,26 @@
+import { IFormData, useFormData } from "@/entrypoints/hooks/formData";
 import { Save, Eye, EyeOff } from "lucide-react";
 import React, { useState } from "react";
+import { toast } from "react-hot-toast";
 
 const CredentialForm = () => {
   const [showpass, setshowpass] = useState(false);
+  const { formData, setFormData } = useFormData();
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData((prev: IFormData) => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    chrome.storage.local.set({ formData }, () => {
+      if (chrome.runtime.lastError) {
+        toast.error("Save failed. Try again.");
+      } else {
+        toast.success("API credentials saved successfully");
+      }
+    });
+  };
 
   return (
     <div className=" w-[450px] ">
@@ -15,7 +33,7 @@ const CredentialForm = () => {
             </p>
           </div>
           <div className="bg-[#332b37] shadow-md rounded-lg p-5">
-            <div className="space-y-6">
+            <form className="space-y-6" onSubmit={handleSubmit}>
               <div className="space-y-4">
                 <div>
                   <label
@@ -28,6 +46,8 @@ const CredentialForm = () => {
                     id="endpoint"
                     name="endpoint"
                     required
+                    value={formData?.endpoint}
+                    onChange={handleChange}
                     type="url"
                     placeholder="https://api.example.com/v1"
                     className="w-full px-3 py-2 text-white text-sm rounded border border-[#3f3f46] outline-none focus:ring-2 focus:ring-purple-200 bg-[#18181b] "
@@ -46,6 +66,8 @@ const CredentialForm = () => {
                       name="apiKey"
                       type={showpass ? "text" : "password"}
                       required
+                      value={formData?.apiKey}
+                      onChange={handleChange}
                       placeholder="Enter your API key"
                       className="w-full px-3 py-2 pr-10 text-white text-sm rounded border border-[#3f3f46] outline-none focus:ring-2 focus:ring-purple-200 bg-[#18181b] "
                     />
@@ -66,7 +88,7 @@ const CredentialForm = () => {
                 <Save size={18} />
                 Save
               </button>
-            </div>
+            </form>
           </div>
           <p className="text-gray-500 text-center">
             Your API credentials are securely processed on browser storage

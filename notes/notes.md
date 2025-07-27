@@ -54,3 +54,14 @@
 | **Popup**          | Your extension’s visible UI | ❌ No                | ✅ Yes                | ❌ Short      |
 | **Background**     | The brain / controller      | ❌ No                | ✅ Yes                | 🟡 Temporary |
 | **Content Script** | Spy inside the webpage      | ✅ Yes               | ❌ No (needs messages)| ✅
+
+# Form Handling Structure
+
+- **Custom Hook (useFormData)**  
+  Provides data storage logic
+
+- **Component (CredentialForm)**  
+  Handles UI and user interactions
+
+- **handleChange & handleSubmit**  
+  Connect user actions to data storage

@@ -1,12 +1,13 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
+import React from "react";
+import ReactDOM from "react-dom/client";
 
-import './style.css';
-import CredentialForm from './components/CredentialForm';
+import "./style.css";
+import CredentialForm from "./components/CredentialForm";
+import { Toaster } from "react-hot-toast";
 
-ReactDOM.createRoot(document.getElementById('root')!).render(
+ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <CredentialForm/>
-
-  </React.StrictMode>,
+    <Toaster/>
+    <CredentialForm />
+  </React.StrictMode>
 );
