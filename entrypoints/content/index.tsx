@@ -4,6 +4,8 @@ import ReactDOM from "react-dom/client";
 import { CreateContentElement } from "./common";
 import Header from "./common/Header";
 import PostModal from "./posts";
+import { ContentScriptContext } from '#imports'; 
+import CommentModal from "./comments";
 
 export default defineContentScript({
   matches: ["*://*/*"],
@@ -15,7 +17,7 @@ export default defineContentScript({
       async (message, sender, sendResponse) => {
         switch (message.action) {
           case "post":
-             const  ui = await createUi(ctx, "post");
+             const  ui = await createUi(ctx, "posts");
              ui.mount()
             break;
 
@@ -33,7 +35,7 @@ export default defineContentScript({
   },
 });
 
-const createUi = async (ctx: any, message: string) => {
+const createUi = async (ctx: ContentScriptContext, type:"posts"| "comment") => {
   return createShadowRootUi(ctx, {
     name: "post-element",
     position: "inline",
@@ -44,7 +46,15 @@ const createUi = async (ctx: any, message: string) => {
       root?.unmount();
       container.style.visibility="hidden";
     };
-        return <PostModal posts={[]} onRemove={onRemove}/>
+        switch(type){
+          case "posts":
+            return <PostModal posts={[]} onRemove={onRemove}/>
+          case "comment":
+            return <CommentModal post={[]} comment={[]} onRemove={onRemove} />
+
+          default :
+          return "";  
+        }
         
       }) as ReactDOM.Root;
     },onRemove(root){

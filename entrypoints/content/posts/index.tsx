@@ -9,7 +9,7 @@ const PostModal = ({
   posts: any;
   onRemove: () => void;
 }) => {
-  const formData = useFormData();
+  const {formData} = useFormData();
   const [loading, setLoading] = useState(false);
   console.log("formdata", formData);
   const postData = [
@@ -54,9 +54,9 @@ const PostModal = ({
     <div className="w-[700px]  bg-gray-900">
       <div
         id="reddit-modal"
-        className="flex flex-col rounded-lg shadow-xl shadow-amber-50 w-full max-w-3xl max-h-[80vh] h-full overflow-hidden "
+        className="flex flex-col rounded-lg shadow-xl w-full max-w-3xl max-h-[80vh] h-full overflow-hidden "
       >
-        <Header title="posts" count={10} onRemove={onRemove} />
+        <Header title="Posts" count={postData.length} onRemove={onRemove} />
         {loading && <p className="text-center text-white text-2xl">Loading.</p>}
         <div className="px-2 flex-1 overflow-y-auto">
           {postData?.map((post) => (
