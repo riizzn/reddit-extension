@@ -13,7 +13,7 @@ const Header = ({title, count, onRemove}: HeaderProps) => {
         <div className=" flex items-center space-x-2">
             <h2 className="text-lg font-semibold text-gray-100 tracking-tight">{title}</h2>
 
-            <span className=" text-sm font-normal text-muted-forground">
+            <span className=" text-sm font-normal text-gray-300">
               ({count})
             </span>
 

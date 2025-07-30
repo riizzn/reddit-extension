@@ -2,41 +2,26 @@ import { useFormData } from "@/entrypoints/hooks/formData";
 import React from "react";
 import Header from "../common/Header";
 import Markdown from "react-markdown";
+import { IComment, IPost } from "../scripts/scrap";
 
 const CommentModal = ({
   post,
-  comment,
+  comments,
   onRemove,
 }: {
-  post: any;
-  comment: any[];
+  post:IPost ;
+  comments: IComment[];
   onRemove: () => void;
 }) => {
   const { formData } = useFormData();
   const [loading, setLoading] = useState(false);
-  const commentData = [
-    {
-      id: 1,
-      author: "user123",
-      comment:
-        "This is a fantastic article! I learned so much about the subject.",
-      score: 3,
-    },
-    {
-      id: 2,
-      author: "user123",
-      comment:
-        "This is a fantastic article! I learned so much about the subject.",
-      score: 3,
-    },
-    {
-      id: 3,
-      author: "user123",
-      comment:
-        "This is a fantastic article! I learned so much about the subject.",
-      score: 3,
-    },
-  ];
+    const handleCommentClick=(comment:IComment)=>{
+      if(comment.permalink){
+        window.open(comment.permalink,"_blank", "noopener,noReferrer")
+  
+      }
+    }
+
   return (
     <div className="w-[700px]  bg-gray-900">
       <div
@@ -45,25 +30,24 @@ const CommentModal = ({
       >
         <Header
           title="Comments"
-          count={commentData.length}
+          count={comments.length}
           onRemove={onRemove}
         />
         {loading && <p className="text-center text-white text-2xl">Loading.</p>}
         <div className="px-2 flex-1 overflow-y-auto m-4">
           <Markdown>
-            {`# Hello world
-This is a simple markdown example.
-- Item 1
-- Item 2
-- Item 3`}
+            {
+              " ## Hello world This is a simple markdown example. - Item 1 - Item 2 - Item 3"
+            }
           </Markdown>
         </div>
 
         <div className="px-2 flex-1 overflow-y-auto">
-          {commentData?.map((comm) => (
+          {comments?.map((comm) => (
             <div
               key={comm.id}
-              className="m-3 p-4 border border-gray-500  hover:border-gray-200 transition "
+              onClick={()=>handleCommentClick(comm)}
+              className="m-3 p-4 border border-gray-500  hover:border-gray-200 transition rounded-xl  "
             >
               <div className="flex flex-col space-y-3 ">
                 <div className="flex items-center space-x-2 text-xs">
