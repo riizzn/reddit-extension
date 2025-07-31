@@ -33,8 +33,8 @@ Ever found yourself scrolling through a massive Reddit thread wondering "what's 
 
 ```bash
 # Grab the code
-git clone https://github.com/your-username/reddit-insight-extension.git
-cd reddit-insight-extension
+git clone https://github.com/your-username/reddit-extension.git
+cd reddit-extension
 
 # Install the goods
 pnpm install
@@ -69,5 +69,8 @@ This is just the beginning! Here's what I'm working on:
 ##  Contributing
 
 Found a bug? Have an idea? Want to make it better? Pull requests are welcome! This project is still young and could use all the help it can get.
+
+## License
+[MIT License](./LICENSE).
 
 
