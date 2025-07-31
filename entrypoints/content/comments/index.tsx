@@ -3,6 +3,7 @@ import React from "react";
 import Header from "../common/Header";
 import Markdown from "react-markdown";
 import { IComment, IPost } from "../scripts/scrap";
+import Search from "../common/Search";
 
 const CommentModal = ({
   post,
@@ -33,6 +34,7 @@ const CommentModal = ({
           count={comments.length}
           onRemove={onRemove}
         />
+         <Search handleSearch={()=>{}}/>
         {loading && <p className="text-center text-white text-2xl">Loading.</p>}
         <div className="px-2 flex-1 overflow-y-auto m-4">
           <Markdown>

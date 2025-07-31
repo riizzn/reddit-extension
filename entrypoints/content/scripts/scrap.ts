@@ -86,3 +86,25 @@ export function extractComments() {
 
   return postComments;
 }
+export function extractJsonListFromMarkdown(markdownText: string): IPost[] {
+  const jsonRegex = /```(?:json|javascript)?\n([\s\S]*?)\n```|`({[\s\S]*?})`/g;
+  const jsonLists = [];
+  let match;
+
+  while ((match = jsonRegex.exec(markdownText)) !== null) {
+    try {
+      const jsonString = match[1] || match[2];
+      if (jsonString) {
+        const parsedJson = JSON.parse(jsonString);
+        if (Array.isArray(parsedJson)) {
+          jsonLists.push(parsedJson);
+        }
+      }
+    } catch (error) {
+      console.error("Error parsing JSON:", error);
+    }
+  }
+
+  return jsonLists[0] || [];
+}
+ 

@@ -7,6 +7,8 @@ import PostModal from "./posts";
 import { ContentScriptContext } from "#imports";
 import CommentModal from "./comments";
 import { extractComments, extractPosts } from "./scripts/scrap";
+import { Toaster } from 'react-hot-toast';
+
 
 export default defineContentScript({
   matches: ["*://*/*"],
