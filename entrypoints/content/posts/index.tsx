@@ -6,6 +6,7 @@ import Search from "../common/Search";
 import content from "..";
 import axios from "axios";
 import CustomToast from "../common/CustomToast";
+import toast from "react-hot-toast";
 
 const PostModal = ({
   posts,
@@ -18,13 +19,14 @@ const PostModal = ({
   const [loading, setLoading] = useState(false);
   const [geminiResponse, setGeminiResponse] = useState<IPost[]>([]);
   const handlePostClick = (post: IPost) => {
-    setLoading(true);
-    setGeminiResponse([]);
+    
     if (post.link) {
       window.open(post.link, "_blank", "noopener,noReferrer");
     }
   };
   const handleSearch = async (searchQuery: string) => {
+    setLoading(true);
+    setGeminiResponse([]);
     const url = formData?.endpoint;
     const payload = {
       contents: [
@@ -76,11 +78,11 @@ Just give me empty array if not match found. And if found, return only the match
         id="reddit-modal"
         className="flex flex-col rounded-lg shadow-xl w-full max-w-3xl max-h-[80vh] h-full overflow-hidden "
       >
-        <Header title="Posts" count={posts?.length} onRemove={onRemove} />
+        <Header title="Posts" count={posts?.length || geminiResponse?.length} onRemove={onRemove} />
         <Search handleSearch={handleSearch} />
-        {loading && <p className="text-center text-white text-2xl">Loading.</p>}
+        {loading && <p className="text-center text-white text-2xl">Loading...</p>}
         <div className="px-2 flex-1 overflow-y-auto">
-          {posts?.map((post) => (
+          {(geminiResponse?.length ? geminiResponse : posts)?.map((post) => (
             <div
               key={post.id}
               onClick={() => handlePostClick(post)}
