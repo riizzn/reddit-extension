@@ -70,8 +70,4 @@ This is just the beginning! Here's what I'm working on:
 
 Found a bug? Have an idea? Want to make it better? Pull requests are welcome! This project is still young and could use all the help it can get.
 
-## 📝 License
-
-MIT License 
----
 
